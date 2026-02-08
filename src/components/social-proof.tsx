@@ -36,6 +36,23 @@ function AvatarImage({ handle, name }: { handle: string; name: string }) {
   );
 }
 
+function TweetImage({ src }: { src: string }) {
+  const [error, setError] = useState(false);
+  if (error) return null;
+  return (
+    <Image
+      src={src}
+      alt=""
+      width={600}
+      height={340}
+      className="w-full rounded-lg object-cover"
+      loading="lazy"
+      unoptimized
+      onError={() => setError(true)}
+    />
+  );
+}
+
 const SHOWCASES = [
   {
     handle: "dreetje",
@@ -46,28 +63,31 @@ const SHOWCASES = [
     xUrl: "https://x.com/dreetje",
   },
   {
-    handle: "danpeguine",
-    name: "Dan Peguine",
-    likes: 257,
-    quote:
-      "Mi OpenClaw organiza mi calendario por prioridad, me da briefings matutinos con clima y objetivos del día, investiga proyectos y personas antes de reuniones, y crea facturas. Mi productividad se multiplicó.",
-    xUrl: "https://x.com/danpeguine",
-  },
-  {
     handle: "astuyve",
     name: "AJ Stuyvenberg",
     likes: 255,
     quote:
       "OpenClaw me ahorró $4,200 en un auto. Negoció automáticamente con múltiples concesionarios por email, navegador e iMessage. Todo mientras yo seguía con mi día.",
     xUrl: "https://x.com/astuyve",
+    images: ["https://pbs.twimg.com/media/G_J-F2FXcAAVFM_.jpg"],
   },
   {
-    handle: "armanddp",
-    name: "Armand du Plessis",
-    likes: 14,
+    handle: "stevecaldwell",
+    name: "Steve Caldwell",
+    likes: 133,
     quote:
-      "Encuentra mi próximo vuelo en el email, hace el check-in, y me consigue asiento de ventana. Todo mientras yo voy manejando.",
-    xUrl: "https://x.com/armanddp",
+      "Construí un sistema de planificación de comidas semanal: plantilla maestra, listas de compras por tienda, recomendaciones basadas en el clima, catálogo de recetas, y recordatorios automáticos.",
+    xUrl: "https://x.com/stevecaldwell",
+    images: ["https://pbs.twimg.com/media/G9x8cPQXUAAXjIW.jpg"],
+  },
+  {
+    handle: "nateliason",
+    name: "Nat Eliason",
+    likes: 89,
+    quote:
+      "La cantidad de cosas que puedes automatizar con un asistente de IA es absurda. Desde organizar tu inbox hasta manejar tu smart home. Una vez que lo pruebas, no hay vuelta atrás.",
+    xUrl: "https://x.com/nateliason",
+    images: ["https://pbs.twimg.com/media/G_X_aoQWsAA7mMv.jpg"],
   },
   {
     handle: "IamAdiG",
@@ -78,12 +98,13 @@ const SHOWCASES = [
     xUrl: "https://x.com/IamAdiG",
   },
   {
-    handle: "stevecaldwell",
-    name: "Steve Caldwell",
-    likes: 133,
+    handle: "thekitze",
+    name: "Kitze",
+    likes: 74,
     quote:
-      "Construí un sistema de planificación de comidas semanal: plantilla maestra, listas de compras por tienda, recomendaciones basadas en el clima, catálogo de recetas, y recordatorios automáticos.",
-    xUrl: "https://x.com/stevecaldwell",
+      "Esto es lo que pasa cuando le das a una IA acceso a tus herramientas del día a día. Se vuelve indispensable en horas, no en semanas.",
+    xUrl: "https://x.com/thekitze",
+    images: ["https://pbs.twimg.com/media/G_XiPstXsAIWtqK.jpg"],
   },
 ];
 
@@ -144,6 +165,15 @@ export function SocialProof() {
                 <p className="flex-1 text-[15px] leading-[1.7] text-[var(--text-secondary)]">
                   &ldquo;{s.quote}&rdquo;
                 </p>
+
+                {/* Tweet image */}
+                {"images" in s && s.images && s.images.length > 0 && (
+                  <div className="flex flex-col gap-2">
+                    {s.images.map((img, i) => (
+                      <TweetImage key={i} src={img} />
+                    ))}
+                  </div>
+                )}
 
                 {/* Footer */}
                 <div className="flex items-center gap-2 border-t border-[var(--border-subtle)] pt-4 text-[var(--text-muted)] transition-colors group-hover:text-[var(--accent-green)]">

@@ -48,22 +48,25 @@ function AnimatedNumber({ target, suffix = "" }: { target: number; suffix?: stri
 const CARDS = [
   {
     icon: <Clock className="h-8 w-8" />,
+    label: "Pierdes cada día en tareas repetitivas",
     target: 5,
     suffix: "+ horas/día",
-    desc: "En tareas repetitivas: respondiendo mensajes, organizando agenda, buscando información, actualizando datos. Tu IA puede hacer todo eso en segundos.",
+    desc: "Respondiendo mensajes, organizando agenda, buscando información, actualizando datos. Tu IA puede hacer todo eso en segundos.",
   },
   {
     icon: <Users className="h-8 w-8" />,
+    label: "Cuesta un asistente humano de 8 horas",
     prefix: "$",
     target: 1500,
     suffix: "+/mes",
-    desc: "Es lo que cuesta un asistente humano que trabaja 8 horas. Tu asistente de IA trabaja 24/7 — sin vacaciones, sin errores, sin límite de tareas.",
+    desc: "Tu asistente de IA trabaja 24/7 — sin vacaciones, sin errores, sin límite de tareas. Por una fracción del costo.",
   },
   {
     icon: <TrendingDown className="h-8 w-8" />,
+    label: "De tus tareas son automatizables",
     target: 68,
     suffix: "%",
-    desc: "De las tareas diarias de un emprendedor son repetitivas y automatizables. Imagina recuperar ese tiempo para lo que realmente importa.",
+    desc: "Las tareas diarias de un emprendedor son repetitivas. Imagina recuperar ese tiempo para lo que realmente importa.",
   },
 ];
 
@@ -92,10 +95,15 @@ export function Problem({ waLink }: { waLink: string }) {
             <StaggerItem key={card.suffix}>
               <div className="flex flex-col gap-5 rounded-2xl border border-white/[0.06] bg-[var(--bg-card)] p-8 transition-[transform,box-shadow] hover:-translate-y-[2px] hover:shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
                 <span className="text-[var(--accent-green)]">{card.icon}</span>
-                <span className="font-heading text-[28px] font-bold text-[var(--text-primary)]" style={{ fontVariantNumeric: "tabular-nums" }}>
-                  {"prefix" in card && card.prefix}
-                  <AnimatedNumber target={card.target} suffix={card.suffix} />
-                </span>
+                <div className="flex flex-col gap-1">
+                  <span className="font-heading text-[28px] font-bold text-[var(--text-primary)]" style={{ fontVariantNumeric: "tabular-nums" }}>
+                    {"prefix" in card && card.prefix}
+                    <AnimatedNumber target={card.target} suffix={card.suffix} />
+                  </span>
+                  <span className="text-[13px] font-medium text-[var(--text-muted)]">
+                    {card.label}
+                  </span>
+                </div>
                 <p className="text-[14px] leading-[1.7] text-[var(--text-secondary)]">
                   {card.desc}
                 </p>
